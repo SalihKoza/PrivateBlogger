@@ -1,0 +1,34 @@
+<article class="post-detail">
+  <%= link_to "← Yazılara dön", posts_path, class: "back-link" %>
+
+  <header class="post-detail-header">
+    <p class="post-date">
+      <%= @post.created_at.strftime("%d.%m.%Y") %>
+    </p>
+
+    <span class="status-badge">
+      <%= @post.status.titleize %>
+    </span>
+
+    <h1><%= @post.title %></h1>
+
+    <div class="post-actions">
+      <%= link_to "Düzenle", edit_post_path(@post), class: "btn btn-secondary" %>
+
+      <%= button_to "Sil", post_path(@post),
+            method: :delete,
+            class: "btn btn-danger",
+            form: { data: { turbo_confirm: "Bu yazıyı silmek istediğine emin misin?" } } %>
+    </div>
+
+    <div class="category-list">
+            <% @post.categories.each do |category| %>
+            <%= link_to category.name, category_path(category), class: "category-badge" %>
+          <% end %>
+        </div>
+  </header>
+
+  <div class="post-detail-body">
+    <%= simple_format(@post.article) %>
+  </div>
+</article>

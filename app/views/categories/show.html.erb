@@ -1,0 +1,41 @@
+<section class="posts-section">
+  <%= link_to "← Kategorilere dön", categories_path, class: "back-link" %>
+
+  <div class="section-header mb-4">
+    <p class="eyebrow">Kategori</p>
+    <h1><%= @category.name %></h1>
+  </div>
+
+  <% if @posts.any? %>
+    <div class="row g-4">
+      <% @posts.each do |post| %>
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="post-card h-100">
+            <p class="post-date">
+              <%= post.created_at.strftime("%d.%m.%Y") %>
+            </p>
+
+            <span class="status-badge">
+              <%= post.status.titleize %>
+            </span>
+
+            <h3>
+              <%= link_to post.title, post_path(post) %>
+            </h3>
+
+            <p>
+              <%= truncate(post.article, length: 140) %>
+            </p>
+
+            <%= link_to "Devamını oku", post_path(post), class: "read-more" %>
+          </article>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <h3>Bu kategoriye ait yazı yok.</h3>
+      <p>Bir blog yazısını düzenleyip bu kategoriye bağlayabilirsin.</p>
+    </div>
+  <% end %>
+</section>

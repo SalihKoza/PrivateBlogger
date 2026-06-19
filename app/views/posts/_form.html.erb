@@ -1,0 +1,46 @@
+<%= form_with model: post, class: "post-form" do |form| %>
+  <% if post.errors.any? %>
+    <div class="form-errors">
+      <h3><%= pluralize(post.errors.count, "hata") %> nedeniyle kayıt yapılamadı:</h3>
+
+      <ul>
+        <% post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :title, "Başlık" %>
+    <%= form.text_field :title, placeholder: "Blog yazısı başlığı" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :article, "İçerik" %>
+    <%= form.text_area :article, rows: 10, placeholder: "Blog yazısı içeriği" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :status, "Durum" %>
+    <%= form.select :status, Post.statuses.keys.map { |status| [status.titleize, status] } %>
+  </div>
+
+  <div class="form-group">
+  <%= form.label :category_ids, "Kategoriler" %>
+
+  <div class="category-check-list">
+    <%= form.collection_check_boxes :category_ids, @categories, :id, :name do |builder| %>
+      <div class="form-check">
+        <%= builder.check_box class: "form-check-input" %>
+        <%= builder.label class: "form-check-label" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+  <div class="form-actions">
+    <%= form.submit "Kaydet", class: "btn btn-primary" %>
+    <%= link_to "Vazgeç", posts_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>

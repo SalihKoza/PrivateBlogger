@@ -1,0 +1,24 @@
+<section class="form-page">
+  <div class="section-header mb-4">
+    <p class="eyebrow">Kategoriler</p>
+    <h1>Blog Kategorileri</h1>
+  </div>
+
+  <% if @categories.any? %>
+    <div class="row g-4">
+      <% @categories.each do |category| %>
+        <div class="col-12 col-md-6 col-lg-4">
+          <%= link_to category_path(category), class: "category-card" do %>
+            <h3><%= category.name %></h3>
+            <p><%= pluralize(category.posts.count, "yazı") %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <h3>Henüz kategori yok.</h3>
+      <p>Kategorileri seed dosyasıyla veya Rails console ile ekleyebilirsin.</p>
+    </div>
+  <% end %>
+</section>

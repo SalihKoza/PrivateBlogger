@@ -1,9 +1,19 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+rails = Category.find_or_create_by!(name: "Ruby on Rails")
+ruby = Category.find_or_create_by!(name: "Ruby")
+web = Category.find_or_create_by!(name: "Web Programlama")
+database = Category.find_or_create_by!(name: "Veritabanı")
+
+Post.find_or_create_by!(title: "Ruby on Rails Öğrenmeye Başlıyorum") do |post|
+  post.article = "Bu yazıda Rails projesinin temel yapısını, MVC mimarisini ve blog uygulamasının nasıl geliştirileceğini anlatıyorum."
+  post.status = :published
+end
+
+Post.find_or_create_by!(title: "MVC Mimarisi Nedir?") do |post|
+  post.article = "MVC; Model, View ve Controller katmanlarından oluşur. Model veritabanı işlemlerini, View kullanıcı arayüzünü, Controller ise gelen istekleri yönetir."
+  post.status = :published
+end
+
+Post.find_or_create_by!(title: "Rails Routes Mantığı") do |post|
+  post.article = "Routes dosyası, kullanıcıdan gelen URL isteklerini ilgili controller actionlarına yönlendirir."
+  post.status = :draft
+end

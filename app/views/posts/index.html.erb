@@ -1,0 +1,49 @@
+<section class="posts-section" id="posts">
+  <div class="d-flex align-items-center justify-content-between gap-3 mb-4">
+    <div>
+      <p class="eyebrow">Son Yazılar</p>
+      <h2 class="mb-0">Blog Yazıları</h2>
+    </div>
+
+    <%= link_to "Yeni Yazı", new_post_path, class: "btn btn-info fw-bold" %>
+  </div>
+
+  <% if @posts.any? %>
+    <div class="row g-4">
+      <% @posts.each do |post| %>
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="post-card h-100">
+            <p class="post-date">
+              <%= post.created_at.strftime("%d.%m.%Y") %>
+            </p>
+
+            <span class="status-badge">
+              <%= post.status.titleize %>
+            </span>
+
+            <div class="category-list">
+                <% post.categories.each do |category| %>
+                <%= link_to category.name, category_path(category), class: "category-badge" %>
+              <% end %>
+            </div>
+
+            <h3>
+              <%= link_to post.title, post_path(post) %>
+            </h3>
+
+            <p>
+              <%= truncate(post.article, length: 140) %>
+            </p>
+
+            <%= link_to "Devamını oku", post_path(post), class: "read-more" %>
+          </article>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <h3>Henüz blog yazısı yok.</h3>
+      <p>İlk blog yazını oluşturmak için “Yeni Yazı” butonunu kullanabilirsin.</p>
+    </div>
+  <% end %>
+</section>
